@@ -17,5 +17,5 @@ dist: update
 .PHONY: update
 update:
 	git submodule update --init
-	go install
+	go install github.com/markbates/pkger/cmd/pkger
 	$(GOPATH)/bin/pkger
