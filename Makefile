@@ -10,9 +10,11 @@ default: update dist
 dist: update
 	rm -rf dist/
 	mkdir -p dist/
-	env GOOS=linux GOARCH=amd64 $(GO) build $(GO_BUILD_FLAGS) -o dist/dio-exporter-linux-amd64;
-	env GOOS=darwin GOARCH=amd64 $(GO) build $(GO_BUILD_FLAGS) -o dist/dio-exporter-darwin-amd64;
-	env GOOS=windows GOARCH=amd64 $(GO) build $(GO_BUILD_FLAGS) -o dist/dio-exporter-windows-amd64.exe;
+	# "-tags 'osusergo netgo'" is needed for creating static binary.
+	# refs: https://github.com/golang/go/issues/26492#issuecomment-635563222
+	env GOOS=linux   GOARCH=amd64 $(GO) build -tags 'osusergo netgo' -o dist/dio-exporter-linux-amd64;
+	env GOOS=darwin  GOARCH=amd64 $(GO) build -tags 'osusergo netgo' -o dist/dio-exporter-darwin-amd64;
+	env GOOS=windows GOARCH=amd64 $(GO) build -tags 'osusergo netgo' -o dist/dio-exporter-windows-amd64.exe;
 
 .PHONY: update
 update:
