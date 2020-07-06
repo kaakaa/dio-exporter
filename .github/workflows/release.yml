@@ -19,6 +19,9 @@ jobs:
     - name: Check out code into the Go module directory
       uses: actions/checkout@v2
 
+    - name: Set env
+      run: echo ::set-env name=RELEASE_VERSION::${GITHUB_REF#refs/*/}
+
     - name: Get dependencies
       run: |
         go get -v -t -d ./...
@@ -48,7 +51,7 @@ jobs:
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path:  ./dist/dio-exporter-darwin-amd64
-        asset_name: dio-exporter-${{ github.ref }}-darwin-amd64
+        asset_name: dio-exporter-${{ env.RELEASE_VERSION }}-darwin-amd64
         asset_content_type: application/octet-stream
 
     - name: Upload Release Asset (linux)
@@ -59,7 +62,7 @@ jobs:
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path:  ./dist/dio-exporter-linux-amd64
-        asset_name: dio-exporter-${{ github.ref }}-linux-amd64
+        asset_name: dio-exporter-${{ env.RELEASE_VERSION }}-linux-amd64
         asset_content_type: application/octet-stream
 
     - name: Upload Release Asset (windows)
@@ -69,6 +72,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path:  ./dist/dio-exporter-wondows-amd64
-        asset_name: dio-exporter-${{ github.ref }}-windows-amd64.exe
+        asset_path:  ./dist/dio-exporter-wondows-amd64.exe
+        asset_name: dio-exporter-${{ env.RELEASE_VERSION }}-windows-amd64.exe
         asset_content_type: application/octet-stream
