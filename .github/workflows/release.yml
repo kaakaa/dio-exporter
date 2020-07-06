@@ -72,6 +72,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path:  ./dist/dio-exporter-wondows-amd64.exe
+        asset_path:  ./dist/dio-exporter-windows-amd64.exe
         asset_name: dio-exporter-${{ env.RELEASE_VERSION }}-windows-amd64.exe
         asset_content_type: application/octet-stream
