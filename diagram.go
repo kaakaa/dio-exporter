@@ -159,13 +159,19 @@ func readDiagram(root, path string) (*Diagram, error) {
 		return nil, err
 	}
 
+	xmlString := string(b)
+	// Cut all new line characters
+	xmlString = strings.Replace(xmlString, "\n", "", -1)
+	// Escape single quote
+	xmlString = strings.Replace(xmlString, `'`, `&#39;`, -1)
+
 	abs, _ := filepath.Abs(path)
 	rel, _ := filepath.Rel(root, path)
 	return &Diagram{
 		Path:     abs,
 		RelPath:  rel,
 		Elements: xmldata.Diagrams,
-		XMLBody:  strings.Replace(string(b), "\n", "", -1),
+		XMLBody:  xmlString,
 	}, nil
 }
 
