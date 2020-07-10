@@ -26,6 +26,10 @@ func TestFunctionality(t *testing.T) {
 		caseName string
 		format   string
 	}{
+		"single quote": {
+			caseName: "single-quote",
+			format:   "png",
+		},
 		"two tabs": {
 			caseName: "two-tabs",
 			format:   "png",
