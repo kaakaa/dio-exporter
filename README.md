@@ -17,4 +17,7 @@ https://www.google.com/intl/ja_jp/chrome/
 
 `make test`
 
+
+<!-- This feature doesn't used for now, becuase of problems about fonts
 `Node.js` is needed for running tests, because tests are using [pixelmatch](https://github.com/mapbox/pixelmatch) for comparing exported images and oracle images.
+-->
