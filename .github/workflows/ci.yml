@@ -50,5 +50,5 @@ jobs:
     - uses: actions/upload-artifact@v2
       if: failure()
       with:
-        name: my-artifact
-        path: test/data/**/diff/*
+        name: testdata
+        path: test/data/
