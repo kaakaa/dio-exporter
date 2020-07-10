@@ -1,0 +1,49 @@
+<mxfile host="" modified="2020-07-10T14:38:54.033Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.46.1 Chrome/78.0.3904.130 Electron/7.3.1 Safari/537.36" etag="J_rfjyU2U_rhUebFPIme" version="13.1.3" pages="2">
+    <diagram id="6hGFLwfOUW9BJ-s0fimq" name="Page-1">
+        <mxGraphModel dx="1436" dy="333" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="2" target="3" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="2" value="TEST" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="20" y="20" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="テスト" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="230" y="20" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="テスト2" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="850" y="100" width="120" height="60" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram id="qeE5D7ci6oQ6_vfj2qCA" name="ページ2">
+        &#xa;        &#xa;        &#xa;        &#xa;        &#xa;        &#xa;        &#xa;        &#xa;        &#xa;        
+        <mxGraphModel dx="382" dy="463" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            &#xa;            &#xa;            &#xa;            &#xa;            &#xa;            &#xa;            &#xa;            &#xa;            &#xa;            
+            <root>
+                &#xa;                &#xa;                &#xa;                &#xa;                &#xa;                &#xa;                &#xa;                &#xa;                &#xa;                
+                <mxCell id="_75wcnrD3fcvsOX-7kCs-0"/>
+                &#xa;                &#xa;                &#xa;                &#xa;                &#xa;                &#xa;                &#xa;                &#xa;                &#xa;                
+                <mxCell id="_75wcnrD3fcvsOX-7kCs-1" parent="_75wcnrD3fcvsOX-7kCs-0"/>
+                &#xa;                &#xa;                &#xa;                &#xa;                &#xa;                &#xa;                &#xa;                &#xa;                &#xa;                
+                <mxCell id="_75wcnrD3fcvsOX-7kCs-2" value="Page2" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" vertex="1" parent="_75wcnrD3fcvsOX-7kCs-1">
+                    &#xa;                    &#xa;                    &#xa;                    &#xa;                    &#xa;                    &#xa;                    &#xa;                    &#xa;                    &#xa;                    
+                    <mxGeometry x="140" y="210" width="120" height="60" as="geometry"/>
+                    &#xa;                    &#xa;                    &#xa;                    &#xa;                    &#xa;                &#xa;                &#xa;                &#xa;                &#xa;                
+                </mxCell>
+                &#xa;                &#xa;                &#xa;                &#xa;                &#xa;                &#xa;                &#xa;                &#xa;                &#xa;                
+                <mxCell id="_75wcnrD3fcvsOX-7kCs-3" value="Actor" style="shape=umlActor;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="_75wcnrD3fcvsOX-7kCs-1">
+                    &#xa;                    &#xa;                    &#xa;                    &#xa;                    &#xa;                    &#xa;                    &#xa;                    &#xa;                    &#xa;                    
+                    <mxGeometry x="185" y="290" width="30" height="60" as="geometry"/>
+                    &#xa;                    &#xa;                    &#xa;                    &#xa;                    &#xa;                &#xa;                &#xa;                &#xa;                &#xa;                
+                </mxCell>
+                &#xa;                &#xa;                &#xa;                &#xa;                &#xa;            &#xa;            &#xa;            &#xa;            &#xa;            
+            </root>
+            &#xa;            &#xa;            &#xa;            &#xa;            &#xa;        &#xa;        &#xa;        &#xa;        &#xa;        
+        </mxGraphModel>
+        &#xa;        &#xa;        &#xa;        &#xa;        &#xa;    &#xa;    &#xa;    &#xa;    &#xa;    
+    </diagram>
+</mxfile>
