@@ -19,7 +19,7 @@ type Diagram struct {
 }
 type DiagramElement struct {
 	Id         string `xml:"id,attr"`
-	Name       string `xml:"name,attr`
+	Name       string `xml:"name,attr"`
 	GraphModel struct {
 		Width  string `xml:"dx"`
 		Height string `xml:"dy"`
