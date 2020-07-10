@@ -1,7 +1,9 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"os"
 	"os/exec"
@@ -11,6 +13,7 @@ import (
 	"testing"
 )
 
+// Before running, YOU MUST generate latest binaries by `make dist` command
 func TestFunctionality(t *testing.T) {
 	binaryFile := fmt.Sprintf("../dist/dio-exporter-%s-amd64", runtime.GOOS)
 	binary, err := filepath.Abs(binaryFile)
@@ -25,15 +28,18 @@ func TestFunctionality(t *testing.T) {
 
 	for name, test := range map[string]struct {
 		caseName string
-		format   string
+		// For testing, only "svg" is supported as output format.
+		// If using PNG, the content of the exported images will be dependent on the environment's font,
+		// making it impossible to write portable tests.
+		format string
 	}{
 		"single quote": {
 			caseName: "single-quote",
-			format:   "png",
+			format:   "svg",
 		},
 		"two tabs": {
 			caseName: "two-tabs",
-			format:   "png",
+			format:   "svg",
 		},
 	} {
 		t.Run(name, func(t *testing.T) {
@@ -71,7 +77,15 @@ func TestFunctionality(t *testing.T) {
 				t.Fatalf("an error occurs when finding files in %s", outDir)
 			}
 
-			results := compare(testRoot, oracles, outputs)
+			var results map[string]string
+			switch test.format {
+			case "svg":
+				results = compareSVG(testRoot, oracles, outputs)
+			case "png":
+				results = compareImage(testRoot, oracles, outputs)
+			default:
+				t.Fatalf("Invalid format: %s", test.format)
+			}
 
 			// count failures
 			failCount := 0
@@ -105,8 +119,47 @@ func findFiles(root string) ([]string, error) {
 	return results, err
 }
 
+func compareSVG(testRoot string, oracles, comparisons []string) map[string]string {
+	var results = map[string]string{}
+	for _, path := range oracles {
+		if !includes(comparisons, path) {
+			results[path] = "output file is missing"
+			continue
+		}
+
+		oracleFile := filepath.Join(testRoot, "oracle", path)
+		comparisonFile := filepath.Join(testRoot, "output", path)
+
+		b1, err := ioutil.ReadFile(oracleFile)
+		if err != nil {
+			results[path] = "failed to read oracle file"
+			continue
+		}
+		b2, err := ioutil.ReadFile(comparisonFile)
+		if err != nil {
+			results[path] = "failed to read comparison file"
+			continue
+		}
+
+		if bytes.Compare(b1, b2) != 0 {
+			results[path] = "two files are different"
+			continue
+		}
+
+		results[path] = "OK"
+	}
+
+	// Add results about the case that there is only output file (, not oracle)
+	for _, c := range comparisons {
+		if !includeAsKey(results, c) {
+			results[c] = "oracle is missing."
+		}
+	}
+	return results
+}
+
 // compare func compares oracles and actual outputs, and returns results for comparing as map
-func compare(testRoot string, oracles, comparisons []string) map[string]string {
+func compareImage(testRoot string, oracles, comparisons []string) map[string]string {
 	var results = map[string]string{}
 	for _, path := range oracles {
 		if !includes(comparisons, path) {
