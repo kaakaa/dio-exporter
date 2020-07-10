@@ -1,6 +1,6 @@
 # dio-exporter
 
-`dio-exporter` is CLI tools for exporting .drawio or .dio file as image file.
+`dio-exporter` is a CLI tool for exporting .drawio or .dio file as image file.
 
 ## Usage
 
