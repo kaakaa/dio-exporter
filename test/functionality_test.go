@@ -6,12 +6,13 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"runtime"
 	"strings"
 	"testing"
 )
 
 func TestFunctionality(t *testing.T) {
-	binaryFile := "../dist/dio-exporter-darwin-amd64"
+	binaryFile := fmt.Sprintf("../dist/dio-exporter-%s-amd64", runtime.GOOS)
 	binary, err := filepath.Abs(binaryFile)
 	if err != nil {
 		t.Fatalf("binary file is missing in %s", binaryFile)
