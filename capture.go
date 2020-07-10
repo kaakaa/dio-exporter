@@ -11,12 +11,38 @@ import (
 	"github.com/chromedp/chromedp"
 )
 
-func capture(drawioURL string, data ConvertData) ([]byte, error) {
+func captureSVG(drawioURL string, data ConvertData) ([]byte, error) {
 	ctx, cancel := chromedp.NewContext(context.Background())
 	defer cancel()
 
+	var evalResult string           // svg text
+	var dummy = map[string]string{} // dummy value. this value never be used.
+
+	evalStatement := fmt.Sprintf(`window.render(%s).container.innerHTML`, data.ToRenderParams())
+
+	// Run
+	logf("Start: ")
+	if err := chromedp.Run(ctx,
+		// 1. Access to drawio page, and wait for "networkIdle" event. (refs: https://github.com/chromedp/chromedp/issues/431#issuecomment-592950397
+		enableLifeCycleEvents(),
+		navigateAndWaitFor(drawioURL, "networkIdle"),
+		// 2. Render dialog
+		renderDiagram(evalStatement, &evalResult, &dummy),
+	); err != nil {
+		return nil, err
+	}
+
+	return []byte(evalResult), nil
+}
+
+func capturePNG(drawioURL string, data ConvertData) ([]byte, error) {
+	ctx, cancel := chromedp.NewContext(context.Background())
+	defer cancel()
+
+	var dummy string               // dummy value. this value never be used.
 	var attr = map[string]string{} // attributed rendered diagram
 	var res []byte                 // captured screenshot data
+
 	evalStatement := fmt.Sprintf(`window.render(%s).enabled`, data.ToRenderParams())
 
 	// Run
@@ -26,7 +52,7 @@ func capture(drawioURL string, data ConvertData) ([]byte, error) {
 		enableLifeCycleEvents(),
 		navigateAndWaitFor(drawioURL, "networkIdle"),
 		// 2. Render dialog
-		renderDiagram(evalStatement, &attr),
+		renderDiagram(evalStatement, &dummy, &attr),
 		// 3. Take screenshot
 		takeScreenshot(&attr, &res),
 	); err != nil {
@@ -35,13 +61,13 @@ func capture(drawioURL string, data ConvertData) ([]byte, error) {
 	return res, nil
 }
 
-func renderDiagram(statement string, attr *map[string]string) chromedp.Tasks {
+func renderDiagram(statement string, evalResult *string, attr *map[string]string) chromedp.Tasks {
 	logf("  2. Render a diagram on drawio.")
 	debugf("EvalStatement: %s", statement)
-	var dummy interface{} // Dummy data that never be used
 	return chromedp.Tasks{
-		// NOTE: If evaluating `window.render({...})`, then it returns error ("Object reference chain is too long (-32000)") because of deepness of return value. For avoiding this issue, the following code get `enabled` field in return value, but the value never be used
-		chromedp.Evaluate(statement, &dummy),
+		// NOTE: If evaluating `window.render({...})`, then it returns error ("Object reference chain is too long (-32000)")
+		// because of deepness of return value. For avoiding this issue, the following code get any field in return value.
+		chromedp.Evaluate(statement, evalResult),
 		chromedp.Attributes("#LoadingComplete", attr),
 	}
 }

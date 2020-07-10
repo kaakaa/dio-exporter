@@ -21,3 +21,6 @@ update:
 	git submodule update --init
 	go install github.com/markbates/pkger/cmd/pkger
 	$(GOPATH)/bin/pkger
+
+test: dist
+	go test -v ./test

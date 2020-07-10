@@ -80,10 +80,22 @@ func (d *Diagram) Export(addr, format, bgColor, dest string) error {
 			Host:   addr,
 			Path:   "export3.html",
 		}
-		img, err := capture(u.String(), data)
-		if err != nil {
-			logf("[WARN] failed to capture image: %v", err)
-			continue
+
+		var b []byte
+		var err error
+		switch data.Format {
+		case "png":
+			if b, err = capturePNG(u.String(), data); err != nil {
+				logf("[WARN] failed to capture image: %v", err)
+				continue
+			}
+		case "svg":
+			if b, err = captureSVG(u.String(), data); err != nil {
+				logf("[WARN] failed to capture image: %v", err)
+				continue
+			}
+		default:
+			return fmt.Errorf("[WARN] invalid format: %s", data.Format)
 		}
 
 		// save an image
@@ -99,7 +111,7 @@ func (d *Diagram) Export(addr, format, bgColor, dest string) error {
 		if err := os.MkdirAll(filepath.Dir(path), os.ModePerm); err != nil {
 			return err
 		}
-		if err := ioutil.WriteFile(path, img, os.ModePerm); err != nil {
+		if err := ioutil.WriteFile(path, b, os.ModePerm); err != nil {
 			return err
 		}
 	}
