@@ -1,4 +1,4 @@
-package main
+package pkg
 
 import (
 	"context"
@@ -43,7 +43,7 @@ func capturePNG(drawioURL string, data ConvertData) ([]byte, error) {
 	var attr = map[string]string{} // attributed rendered diagram
 	var res []byte                 // captured screenshot data
 
-	evalStatement := fmt.Sprintf(`window.render(%s).enabled`, data.ToRenderParams())
+	evalStatement := fmt.Sprintf(`window.render(%s).container.innerHTML`, data.ToRenderParams())
 
 	// Run
 	logf("Start: ")

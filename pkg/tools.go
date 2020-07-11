@@ -1,5 +1,5 @@
 // +bulid tools
-package main
+package pkg
 
 import (
 	_ "github.com/markbates/pkger"

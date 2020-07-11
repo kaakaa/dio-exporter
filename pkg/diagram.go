@@ -1,4 +1,4 @@
-package main
+package pkg
 
 import (
 	"encoding/xml"
@@ -91,7 +91,7 @@ func (d *Diagram) Export(addr, format, bgColor, dest string) error {
 			}
 		case "svg":
 			if b, err = captureSVG(u.String(), data); err != nil {
-				logf("[WARN] failed to capture image: %v", err)
+				logf("[WARN] failed to capture svg: %v", err)
 				continue
 			}
 		default:
@@ -125,9 +125,9 @@ func ReadDir(root string, extList []string) ([]*Diagram, error) {
 		return nil, err
 	}
 	logf("Read %d diagrams", len(walker.Diagrams))
-	if *debug {
+	if DebugMode {
 		for _, d := range walker.Diagrams {
-			debugf("  - %s", d.Path)
+			debugf(" %s", d.Path)
 		}
 	}
 	return walker.Diagrams, nil
