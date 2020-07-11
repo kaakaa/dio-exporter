@@ -1,8 +1,10 @@
-package main
+package pkg
 
 import "log"
 
 var Logger *log.Logger
+
+var DebugMode = false
 
 func logf(format string, v ...interface{}) {
 	if Logger == nil {
@@ -13,7 +15,7 @@ func logf(format string, v ...interface{}) {
 }
 
 func debugf(format string, v ...interface{}) {
-	if *debug {
+	if DebugMode {
 		logf("[DEBUG] "+format, v)
 	}
 }
