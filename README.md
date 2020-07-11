@@ -2,6 +2,8 @@
 
 `dio-exporter` is a CLI tool for exporting .drawio or .dio file as image file.
 
+![](./assets/overview_Page-1.png)
+
 ## Usage
 
 Find drawio files (`.drawio` or `.dio`) from `./data` directory recursivelly, convert files to `.png` or `.svg`, and write converted files to `./dist`
